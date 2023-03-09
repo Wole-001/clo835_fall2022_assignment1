@@ -63,3 +63,50 @@
 - X.X.X.X:8081 (For blue)
 - X.X.X.X:8082 (for pink)
 - X.X.X.X:8083 (for Lime)
+- 
+
+
+## Kubernets Pods
+
+`cd k8s`
+
+# deploy mysql pod 
+- kubectl apply -f pods/mysql.yaml
+
+# deploy mysql service
+- kubectl apply -f mysql-service/mysql-service.yaml
+
+# deploy the web application
+- kubectl apply -f pods/web-application.yaml
+ 
+# access the web application
+- kubectl port-forward web-application 8080:8080
+- curl localhost:8080
+
+# to check the logs of the application
+- kubectl logs web-application
+ 
+
+## Kubernets Replicaset
+
+# deploy mysql replicaset
+- kubectl apply -f replicasets/mysql.yaml
+
+# deploy web application replicaset
+- kubectl apply -f replicasets/web-application.yaml
+
+## kubernetes deployments
+
+# deploy mysql deployments
+- kubectl apply -f deployemnts/mysql.yaml
+
+# deploy web application deployments
+- kubectl apply -f deployemnts/web-application.yaml
+
+# deploy web application service 
+- kubectl apply -f deployemnts/application-service.yaml
+ 
+and then access the appliction through MACHINE_IP:30000
+
+
+

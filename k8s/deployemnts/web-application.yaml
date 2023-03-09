@@ -2,7 +2,10 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: employees
+  labels:
+    app: employees
 spec:
+  replicas: 3
   selector:
     matchLabels:
       app: employees
