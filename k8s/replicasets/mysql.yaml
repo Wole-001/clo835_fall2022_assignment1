@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: web-application
-        image: 837853736685.dkr.ecr.us-east-1.amazonaws.com/mysql:1.0
+        image: 837853736685.dkr.ecr.us-east-1.amazonaws.com/mysql:1.1
         env:
         - name: MYSQL_ROOT_PASSWORD
           value: pw
