@@ -100,10 +100,8 @@ Create Namespace
 - curl localhost:8080
 
 
-k get pods -n assignment2
-
-
 #To check the logs of the application
+- k get pods -n assignment2
 - k logs employees-77896d95c4-hl2qt -n assignment2
  
 
