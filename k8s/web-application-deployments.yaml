@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: application
-        image: 837853736685.dkr.ecr.us-east-1.amazonaws.com/app:1.1
+        image: 837853736685.dkr.ecr.us-east-1.amazonaws.com/app:1.0
         env:
          - name: DBHOST
            value: "mysql"
