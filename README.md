@@ -7,7 +7,7 @@
 
 
 
-#Deploy the Terraform Code from Instance (:~/environment/clo835_fall2022_assignment1/terraform_code/dev/instances)
+#Deploy the Terraform Code from Instance (:~/environment)
 
  - Run the following Commands
  - Terraform init
@@ -19,7 +19,7 @@
 #Note IP of the Instance from the Output:XX.XX.XX.XX 
  
 
-#Copy the follwowing files into the tmp folder using SCP
+#Copy the follwowing files into the tmp folder using SCP (scp -i week5 ~/environment//clo835_fall2022_assignment1/k8s/* XX.XX.XX.XX:/tmp)
 
  - init_kind.sh                                                                                                                                                                                                                                                               100%  558   203.7KB/s   00:00
  - kind.yaml  
@@ -36,6 +36,10 @@
 #SSH into the EC2 instance and change directory (cd /tmp)
 
   - ssh -i week5 XX.XX.XX.XX
+  - 
+  
+#Change Directory into the tmp 
+ - cd /tmp
 
 
 #Change Permission to run the script
@@ -53,24 +57,24 @@
 `cd k8s`
 
 Create Namespace
-$ kubectl create ns assignment2
+- kubectl create ns assignment2
 
 
 # deploy mysql pod 
 - kubectl apply -f mysql-pods.yaml -n assignment2
-- 
+
 
 # deploy the web application pod
-- k apply -f web-application-pods.yaml -n assignment2
+- kubectl apply -f web-application-pods.yaml -n assignment2
 - 
 
 # deploy mysql replicaset
 - kubectl apply -f mysql-replicaset.yaml -n assignment2  
-- 
+ 
 
 # deploy web application replicaset
 - kubectl apply -f web-application-replicaset.yaml -n assignment2  
-- 
+ 
 
 # deploy mysql deployments
 - kubectl apply -f mysql-deployments.yaml -n assignment2 
@@ -89,19 +93,29 @@ $ kubectl create ns assignment2
 - 
 
 # access the web application
-- kubectl port-forward web-application 8080:8080
-- 
+- kubectl port-forward svc/employees-service  8080:8080 -n assignment2
+ 
 
 #Open another terminal
 - curl localhost:8080
-- 
 
 
-# to check the logs of the application
-- kubectl logs web-application
+k get pods -n assignment2
+
+
+#To check the logs of the application
+- k logs employees-77896d95c4-hl2qt -n assignment2
  
 
 #Access the appliction through browser @MACHINE_IP:30000
+
+
+#Update the image version in the deployment manifest 
+ - k edit deployment.apps/employees -n assignment2  
+
+
+#Print the new version running in the cluster
+ - kubectl get pods -n assignment2
 
 
 
