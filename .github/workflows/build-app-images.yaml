@@ -3,7 +3,7 @@ name: build images and push to ECR
 on:
   push:
     branches:
-      - master
+      - final-project
 
 env:
   AWS_REGION: us-east-1
