@@ -1,119 +1,22 @@
-         ___        ______     ____ _                 _  ___  
-        / \ \      / / ___|   / ___| | ___  _   _  __| |/ _ \ 
-       / _ \ \ /\ / /\___ \  | |   | |/ _ \| | | |/ _` | (_) |
-      / ___ \ V  V /  ___) | | |___| | (_) | |_| | (_| |\__, |
-     /_/   \_\_/\_/  |____/   \____|_|\___/ \__,_|\__,_|  /_/ 
- ----------------------------------------------------------------- 
+## Steps to Trigger GitHub Action Pipeline
+1- Update the GitHub Actions secrets. Go to https://github.com/Wole-001/clo835_fall2022_assignment1/settings/secrets/actions and update the following secrets:
 
+- AWS_ACCESS_KEY_ID
+- AWS_SECRET_ACCESS_KEY
+- AWS_SESSION_TOKEN
 
+2- Commit the changes to the final-project branch of the repository. This will trigger the pipeline to generate the Docker images.
 
-#Deploy the Terraform Code from Instance (:~/environment)
+3- Wait for the pipeline to build the Docker images and push them to ECR.
 
- - Run the following Commands
- - Terraform init
- - Terraform validate
- - Terraform Plan
- - Terraform apply --auto-approve
- - 
- - 
-#Note IP of the Instance from the Output:XX.XX.XX.XX 
- 
+## Steps to Apply Kubernetes Resources
+1- Open your terminal and navigate to the k8s-manifests directory of the repository.
 
-#Copy the follwowing files into the tmp folder using SCP (scp -i week5 ~/environment//clo835_fall2022_assignment1/k8s/* XX.XX.XX.XX:/tmp)
+2- Create a new Kubernetes namespace for the application by running the following command:
 
- - init_kind.sh                                                                                                                                                                                                                                                               100%  558   203.7KB/s   00:00
- - kind.yaml  
- - mysql-deployments.yaml                                                                                                                                                                            100%  428   183.0KB/s   00:00
- - mysql-pods.yaml
- - mysql-service.yaml                                                                                                                                                                                     100%  270   140.3KB/s   00:00
- - mysql-replicaset.yaml  
- - web-application-deployments.yaml                                                                                                                                                                  100%  652   301.7KB/s   00:00
- - web-application-pods.yaml                                                                                                                                                                         100%  420   172.2KB/s   00:00
- - web-application-replicaset.yaml                                                                                                                                                                   100%  657   267.1KB/s   00:00
- - web-application-service.yaml    
+`kubectl create ns final`
 
+3- Apply the Kubernetes resources using the following command:
 
-#SSH into the EC2 instance and change directory (cd /tmp)
-
-  - ssh -i week5 XX.XX.XX.XX
-  - 
-  
-#Change Directory into the tmp 
- - cd /tmp
-
-
-#Change Permission to run the script
-
-  - chmod 777 init_kind.sh
- 
-
-#Create the Kind Cluster
-
-- ./init_kind.sh
-
-
-## Kubernets Pods
-
-`cd k8s`
-
-Create Namespace
-- kubectl create ns assignment2
-
-
-# deploy mysql pod 
-- kubectl apply -f mysql-pods.yaml -n assignment2
-
-
-# deploy the web application pod
-- kubectl apply -f web-application-pods.yaml -n assignment2
-- 
-
-# deploy mysql replicaset
-- kubectl apply -f mysql-replicaset.yaml -n assignment2  
- 
-
-# deploy web application replicaset
-- kubectl apply -f web-application-replicaset.yaml -n assignment2  
- 
-
-# deploy mysql deployments
-- kubectl apply -f mysql-deployments.yaml -n assignment2 
-
-
-# deploy web application deployments
-- kubectl apply -f web-application-deployments.yaml -n assignment2
-
-
-# deploy mysql Service
-- kubectl apply -f mysql-service.yaml -n assignment2  
-
-
-# deploy web application service 
-- kubectl apply -f web-application-service.yaml -n assignment2 
-- 
-
-# access the web application
-- kubectl port-forward svc/employees-service  8080:8080 -n assignment2
- 
-
-#Open another terminal
-- curl localhost:8080
-
-
-#To check the logs of the application
-- k get pods -n assignment2
-- k logs employees-77896d95c4-hl2qt -n assignment2
- 
-
-#Access the appliction through browser @MACHINE_IP:30000
-
-
-#Update the image version in the deployment manifest 
- - k edit deployment.apps/employees -n assignment2  
-
-
-#Print the new version running in the cluster
- - kubectl get pods -n assignment2
-
-
-
+`kubectl apply -f .`
+This will apply all the resources defined in the k8s-manifests directory.
