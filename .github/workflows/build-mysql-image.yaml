@@ -4,10 +4,6 @@ on:
   push:
     branches:
       - final-project
-    paths:
-      - Dockerfile_mysql
-      - mysql.sql
-      - .github/workflows/build-mysql-image.yaml
 
 env:
   AWS_REGION: us-east-1
