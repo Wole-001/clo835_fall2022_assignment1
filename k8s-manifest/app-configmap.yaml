@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: flask-app-cm
+  namespace: final
+data:
+  IMAGE_URL: "abstract-grunge-decorative-relief-navy-blue-stucco-wall-texture-wide-angle-rough-colored-background_1258-28311.jpg"
+  MY_NAME: "amusan"
+  DBHOST: "mysql"
+  DBPORT: "3306"
+---
+apiVersion: v1
+kind: Secret
+metadata:
+    name: flask-app-secret
+    namespace: final
+data:
+    DBUSER: "cm9vdA=="
+    DBPWD: "cGFzcw=="
